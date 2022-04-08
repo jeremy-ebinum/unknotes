@@ -8,6 +8,20 @@
       Unknotes
     </a>
 
+    <ul
+      *ngIf="(authService.authState$ | async)?.isAuthenticated"
+      class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
+    >
+      <li>
+        <a
+          routerLink="/notes"
+          *ngIf="(authService.authState$ | async)?.isAuthenticated"
+          class="nav-link px-2 link-secondary fw-bold"
+          >My Notes
+        </a>
+      </li>
+    </ul>
+
     <div class="col-md-3 text-end">
       <!-- LOGIN -->
       <button
@@ -30,16 +44,32 @@
   </div>
 </header>
 
-<main class="container d-flex justify-content-center align-items-center">
-  <div class="px-4 py-5 text-center border shadow">
-    <h1 class="display-5 fw-bold">Unknotes</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio cum hic
-        quis vero a reiciendis ipsum dolore, esse dignissimos sed officiis
-        alias. Aspernatur obcaecati, similique earum deleniti molestias aperiam
-        placeat.
-      </p>
+<main class="d-flex justify-content-center align-items-center">
+  <div class="container bootstrap snippets bootdeys">
+    <div class="row">
+      <div *ngFor="let note of notes" class="col-md-4 col-sm-6 content-card">
+        <div class="card-big-shadow">
+          <div
+            class="card card-just-text"
+            data-background="color"
+            data-color="blue"
+            data-radius="none"
+          >
+            <div class="content">
+              <h6 class="category">{{ note.tags }}</h6>
+              <h4 class="title">
+                <a href="#">{{ note.title }}</a>
+              </h4>
+              <p class="description">
+                {{ note.body }}
+              </p>
+
+              <div class="">{{ note.createdAt | date }}</div>
+            </div>
+          </div>
+          <!-- end card -->
+        </div>
+      </div>
     </div>
   </div>
 </main>

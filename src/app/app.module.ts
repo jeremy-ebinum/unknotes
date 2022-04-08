@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AuthRoutingModule } from './auth-routing.module';
+import { NoteModule } from './note/note.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { AuthRoutingModule } from './auth-routing.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    NoteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
