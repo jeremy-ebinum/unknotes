@@ -12,13 +12,13 @@ import java.security.Principal;
 import java.util.List;
 
 import com.example.unknotes.model.Note;
-import com.example.unknotes.service.NoteService;
+import com.example.unknotes.service.NoteServiceImpl;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200") // CORS
 public class UserController {
   @Autowired
-  private NoteService noteService;
+  private NoteServiceImpl noteService;
 
   @GetMapping("/user")
   public ResponseEntity<OidcUser> user(@AuthenticationPrincipal OidcUser user) {
@@ -27,7 +27,6 @@ public class UserController {
 
   @GetMapping("/user/notes")
   public ResponseEntity<List<Note>> notes(Principal principal) {
-    System.out.println("Fetching notes by user: " + principal.getName());
     List<Note> notes = noteService.findNotesByUser(principal);
 
     return new ResponseEntity<>(notes, HttpStatus.OK);

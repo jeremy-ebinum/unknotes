@@ -1,58 +1,26 @@
 package com.example.unknotes.service;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.example.unknotes.exception.NoteNotFoundException;
 import com.example.unknotes.model.Note;
-import com.example.unknotes.repo.NoteRepo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NoteService {
-  private NoteRepo noteRepo;
+public interface NoteService {
 
-  @Autowired
-  public NoteService(NoteRepo noteRepo) {
-    this.noteRepo = noteRepo;
-  }
+  Note addNote(Note note);
 
-  // CREATE
-  public Note addNote(Note note) {
-    return noteRepo.save(note);
-  }
+  List<Note> findAllNotes();
 
-  // READ
-  public List<Note> findAllNotes() {
-    return noteRepo.findAll();
-  }
+  Note updateNote(Note note);
 
-  // UPDATE
-  public Note updateNote(Note note) {
-    return noteRepo.save(note);
-  }
+  void deleteNote(Long id);
 
-  // DELETE
-  public void deleteNote(Long id) {
-    noteRepo.deleteById(id);
-  }
+  Note findNoteById(Long id);
 
-  // FIND BY ID
-  public Note findNoteById(Long id) {
-    return noteRepo.findNoteById(id)
-        .orElseThrow(() -> new NoteNotFoundException("Note with id " + id + " was not found"));
-  }
+  List<Note> findNotesByUser(Principal principal);
 
-  // FIND NOTES BY USER
-  public List<Note> findNotesByUser(Principal principal) {
-    return noteRepo.findAllByUser(principal.getName()).orElseGet(() -> new ArrayList<Note>());
-  }
-
-  // FIND NOTES BY TAG
-  public List<Note> retrieveByTag(String tag) {
-    return noteRepo.retrieveByTag(tag).orElseGet(() -> new ArrayList<Note>());
-  }
+  List<Note> retrieveByTag(String tag);
 }
