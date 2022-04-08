@@ -13,11 +13,11 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface NoteRepo extends JpaRepository<Note, Long> {
 
-  void deleteNoteById(Long id);
+  void deleteNoteById(@Param("id") Long id);
 
-  Optional<Note> findNoteById(Long id);
+  Optional<Note> findNoteById(@Param("id") Long id);
 
-  Optional<List<Note>> findAllByUser(String name);
+  Optional<List<Note>> findAllByUser(@Param("name") String name);
 
   @Query("SELECT n FROM Note n JOIN n.tags t WHERE t = LOWER(:tag)")
   Optional<List<Note>> retrieveByTag(@Param("tag") String tag);
